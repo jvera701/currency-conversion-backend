@@ -10,7 +10,7 @@ import auth from "../middleware/middleware.js";
 const app = express.Router();
 
 app.get("/currencies", auth, currentCurrencies);
-app.get("/latest/:base", auth, convertCurrency);
+app.get("/latest", auth, convertCurrency);
 app.get("/historical/:date", auth, historicalConversion);
 app.post("/login", login);
 

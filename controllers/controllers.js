@@ -30,7 +30,7 @@ const historicalConversion = async (req, res) => {
 
 const convertCurrency = async (req, res) => {
   try {
-    const { base } = req.params;
+    const { base } = req.body;
     const config = {
       params: {
         app_id: configure.exchangeId,
