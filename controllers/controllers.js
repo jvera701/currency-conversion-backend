@@ -5,7 +5,7 @@ import db from "../database/database.js";
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://openexchangerates.org/api/",
+  baseURL: configure.apiUrl,
   timeout: 5000,
   timeoutErrorMessage: "Timeout error",
 });
