@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import db from "../database/database.js";
 import configure from "../config/index.js";
 
+// Middle ware that checks if user is authenticated in every request different than login
 const auth = async (req, res, next) => {
   try {
     const token = req.get("Authorization");

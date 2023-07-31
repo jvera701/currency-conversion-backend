@@ -13,7 +13,7 @@ const API = axios.create({
 const historicalConversion = async (req, res) => {
   try {
     const { date } = req.params;
-    const { symbol, base } = req.body;
+    const { symbol, base } = req.query;
     const config = {
       params: {
         app_id: configure.exchangeId,
@@ -30,7 +30,7 @@ const historicalConversion = async (req, res) => {
 
 const convertCurrency = async (req, res) => {
   try {
-    const { base } = req.body;
+    const { base } = req.query;
     const config = {
       params: {
         app_id: configure.exchangeId,
