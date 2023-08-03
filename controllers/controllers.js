@@ -58,7 +58,7 @@ const login = (req, res, next) => {
     const { email, password } = req.body;
     const stmt = db.prepare("SELECT id, password FROM Users WHERE email = ?");
     stmt.get(email, function (err, rows) {
-      if (err !== null) {
+      if (err) {
         throw err;
       }
       if (!rows) {
