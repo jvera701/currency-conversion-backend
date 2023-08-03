@@ -56,9 +56,9 @@ const currentCurrencies = async (_, res) => {
 const login = (req, res, next) => {
   try {
     const { email, password } = req.body;
-    let query = `SELECT id, password FROM Users WHERE email = "${email}"`;
-    db.get(query, function (err, rows) {
-      if (err) {
+    const stmt = db.prepare("SELECT id, password FROM Users WHERE email = ?");
+    stmt.get(email, function (err, rows) {
+      if (err !== null) {
         throw err;
       }
       if (!rows) {
