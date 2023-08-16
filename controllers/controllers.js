@@ -12,17 +12,32 @@ const API = axios.create({
 
 const historicalConversion = async (req, res) => {
   try {
-    const { date } = req.params;
-    const { symbol, base } = req.query;
+    const { date, times } = req.params;
+    const { base } = req.query;
     const config = {
       params: {
         app_id: configure.exchangeId,
-        symbols: symbol,
         base: base,
       },
     };
-    const response = await API.get(`/historical/${date}.json`, config);
-    res.status(200).json({ rates: response.data.rates });
+
+    let arr = [];
+    const now = new Date(date);
+    for (let i = 0; i < times; i++) {
+      const month = now.getMonth() - i;
+      const prev1 = i === 0 ? now : new Date(now.getFullYear(), month, 15);
+      const dateString = prev1.toISOString().split("T")[0];
+      const response = await API.get(`/historical/${dateString}.json`, config);
+      const monthString = new Intl.DateTimeFormat("en-US", {
+        month: "long",
+      }).format(prev1);
+      const obj = {
+        [monthString]: response.data.rates,
+      };
+      arr.unshift(obj);
+    }
+
+    res.status(200).json(arr);
   } catch (e) {
     res.status(500).json({ error: "Error" });
   }

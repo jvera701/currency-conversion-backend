@@ -11,7 +11,7 @@ const app = express.Router();
 
 app.get("/currencies", auth, currentCurrencies);
 app.get("/latest", auth, convertCurrency);
-app.get("/historical/:date", auth, historicalConversion);
+app.get("/historical/:date/:times", auth, historicalConversion);
 app.post("/login", login);
 
 export default app;
